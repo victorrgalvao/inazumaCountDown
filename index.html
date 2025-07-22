@@ -17,7 +17,6 @@
       overflow: hidden;
     }
 
-    /* Countdown Screen */
     #countdown-screen {
       display: flex;
       height: 100vh;
@@ -79,7 +78,6 @@
       margin-bottom: 20px;
     }
 
-    /* Responsive Design */
     @media (max-width: 768px) {
       #countdown-screen {
         background: url('./inazumabgg.jpg') no-repeat center center/cover;
@@ -187,13 +185,11 @@
   </div>
 
   <script>
-    // Countdown logic
     function updateCountdown() {
       const today = new Date();
-      const earlyAccessDate = new Date(2025, 7, 18); // 18 August 2025
-      const globalLaunchDate = new Date(2025, 7, 21); // 21 August 2025
+      const earlyAccessDate = new Date(2025, 7, 10); // 10 August 2025
+      const globalLaunchDate = new Date(2025, 7, 13); // 13 August 2025
 
-      // Early Access Countdown
       const earlyDiffTime = earlyAccessDate - today;
       if (earlyDiffTime >= 0) {
         const days = Math.floor(earlyDiffTime / (1000 * 60 * 60 * 24));
@@ -211,7 +207,6 @@
         document.getElementById('early-access-ended').style.display = 'block';
       }
 
-      // Global Launch Countdown
       const globalDiffTime = globalLaunchDate - today;
       if (globalDiffTime >= 0) {
         const days = Math.floor(globalDiffTime / (1000 * 60 * 60 * 24));
@@ -230,7 +225,6 @@
       }
     }
 
-    // Initial call and set interval
     updateCountdown();
     setInterval(updateCountdown, 1000);
   </script>
