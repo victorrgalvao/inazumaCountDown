@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Countdown App</title>
   <style>
     * {
@@ -78,151 +78,168 @@
       margin-bottom: 20px;
     }
 
+    .lang-btn {
+      background-color: #00BFFF;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin-top: 20px;
+      cursor: pointer;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+
     @media (max-width: 768px) {
       #countdown-screen {
         background: url('./inazumabgg.jpg') no-repeat center center/cover;
       }
 
-      .title {
-        font-size: 20px;
-      }
-
-      .time-text {
-        font-size: 24px;
-      }
-
-      .time-label {
-        font-size: 14px;
-      }
-
-      .time-block {
-        margin: 0 5px;
-        min-width: 60px;
-      }
-
-      .days-text {
-        font-size: 24px;
-      }
+      .title { font-size: 20px; }
+      .time-text { font-size: 24px; }
+      .time-label { font-size: 14px; }
+      .time-block { margin: 0 5px; min-width: 60px; }
+      .days-text { font-size: 24px; }
     }
 
     @media (max-width: 480px) {
-      .title {
-        font-size: 18px;
-      }
-
-      .time-text {
-        font-size: 20px;
-      }
-
-      .time-label {
-        font-size: 12px;
-      }
-
-      .time-block {
-        margin: 0 5px;
-        min-width: 50px;
-      }
-
-      .days-text {
-        font-size: 20px;
-      }
-
-      .countdown-content {
-        padding: 15px;
-      }
+      .title { font-size: 18px; }
+      .time-text { font-size: 20px; }
+      .time-label { font-size: 12px; }
+      .time-block { margin: 0 5px; min-width: 50px; }
+      .days-text { font-size: 20px; }
+      .countdown-content { padding: 15px; }
     }
   </style>
 </head>
 <body>
   <div id="countdown-screen">
     <div class="countdown-content">
-      <h2 class="title">Dias para acesso antecipado</h2>
+      <h2 class="title" id="early-access-title">Dias para acesso antecipado</h2>
       <div id="early-access-time" class="time-container">
         <div class="time-block">
           <div class="time-text" id="early-days">0</div>
-          <div class="time-label">Dias</div>
+          <div class="time-label" id="label-days">Dias</div>
         </div>
         <div class="time-block">
           <div class="time-text" id="early-hours">0</div>
-          <div class="time-label">Horas</div>
+          <div class="time-label" id="label-hours">Horas</div>
         </div>
         <div class="time-block">
           <div class="time-text" id="early-minutes">0</div>
-          <div class="time-label">Minutos</div>
+          <div class="time-label" id="label-minutes">Minutos</div>
         </div>
         <div class="time-block">
           <div class="time-text" id="early-seconds">0</div>
-          <div class="time-label">Segundos</div>
+          <div class="time-label" id="label-seconds">Segundos</div>
         </div>
       </div>
       <div id="early-access-ended" class="days-text" style="display: none;">
         O acesso antecipado já aconteceu!
       </div>
 
-      <h2 class="title" style="margin-top: 30px;">Dias para o lançamento global</h2>
+      <h2 class="title" id="global-launch-title" style="margin-top: 30px;">
+        Dias para o lançamento global
+      </h2>
       <div id="global-launch-time" class="time-container">
         <div class="time-block">
           <div class="time-text" id="global-days">0</div>
-          <div class="time-label">Dias</div>
+          <div class="time-label" id="label-days-global">Dias</div>
         </div>
         <div class="time-block">
           <div class="time-text" id="global-hours">0</div>
-          <div class="time-label">Horas</div>
+          <div class="time-label" id="label-hours-global">Horas</div>
         </div>
         <div class="time-block">
           <div class="time-text" id="global-minutes">0</div>
-          <div class="time-label">Minutos</div>
+          <div class="time-label" id="label-minutes-global">Minutos</div>
         </div>
         <div class="time-block">
           <div class="time-text" id="global-seconds">0</div>
-          <div class="time-label">Segundos</div>
+          <div class="time-label" id="label-seconds-global">Segundos</div>
         </div>
       </div>
       <div id="global-launch-ended" class="days-text" style="display: none;">
         O lançamento global já aconteceu!
       </div>
+
+      <button class="lang-btn" onclick="toggleLanguage()">Switch to English</button>
     </div>
   </div>
 
   <script>
+    const translations = {
+      pt: {
+        earlyTitle: "Dias para acesso antecipado",
+        globalTitle: "Dias para o lançamento global",
+        endedEarly: "O acesso antecipado já aconteceu!",
+        endedGlobal: "O lançamento global já aconteceu!",
+        labels: ["Dias", "Horas", "Minutos", "Segundos"],
+        button: "Switch to English"
+      },
+      en: {
+        earlyTitle: "Days until Early Access",
+        globalTitle: "Days until Global Launch",
+        endedEarly: "Early access has already happened!",
+        endedGlobal: "Global launch has already happened!",
+        labels: ["Days", "Hours", "Minutes", "Seconds"],
+        button: "Mudar para Português"
+      }
+    };
+
+    let currentLang = 'pt';
+
+    function toggleLanguage() {
+      currentLang = currentLang === 'pt' ? 'en' : 'pt';
+      const t = translations[currentLang];
+
+      document.documentElement.lang = currentLang;
+      document.getElementById("early-access-title").textContent = t.earlyTitle;
+      document.getElementById("global-launch-title").textContent = t.globalTitle;
+
+      document.getElementById("label-days").textContent = t.labels[0];
+      document.getElementById("label-hours").textContent = t.labels[1];
+      document.getElementById("label-minutes").textContent = t.labels[2];
+      document.getElementById("label-seconds").textContent = t.labels[3];
+
+      document.getElementById("label-days-global").textContent = t.labels[0];
+      document.getElementById("label-hours-global").textContent = t.labels[1];
+      document.getElementById("label-minutes-global").textContent = t.labels[2];
+      document.getElementById("label-seconds-global").textContent = t.labels[3];
+
+      document.getElementById("early-access-ended").textContent = t.endedEarly;
+      document.getElementById("global-launch-ended").textContent = t.endedGlobal;
+
+      document.querySelector(".lang-btn").textContent = t.button;
+    }
+
     function updateCountdown() {
       const today = new Date();
-      const earlyAccessDate = new Date(2025, 11, 10); // 10 November 2025
-      const globalLaunchDate = new Date(2025, 11, 13); // 13 November 2025
+      const earlyAccessDate = new Date(2025, 10, 10); // 10 November 2025
+      const globalLaunchDate = new Date(2025, 10, 13); // 13 November 2025
 
       const earlyDiffTime = earlyAccessDate - today;
-      if (earlyDiffTime >= 0) {
-        const days = Math.floor(earlyDiffTime / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((earlyDiffTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((earlyDiffTime % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((earlyDiffTime % (1000 * 60)) / 1000);
-        document.getElementById('early-days').textContent = days;
-        document.getElementById('early-hours').textContent = hours;
-        document.getElementById('early-minutes').textContent = minutes;
-        document.getElementById('early-seconds').textContent = seconds;
-        document.getElementById('early-access-time').style.display = 'flex';
-        document.getElementById('early-access-ended').style.display = 'none';
-      } else {
-        document.getElementById('early-access-time').style.display = 'none';
-        document.getElementById('early-access-ended').style.display = 'block';
+      const globalDiffTime = globalLaunchDate - today;
+
+      function setCountdownElements(prefix, timeDiff) {
+        if (timeDiff >= 0) {
+          const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+          const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+          const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+          document.getElementById(`${prefix}-days`).textContent = days;
+          document.getElementById(`${prefix}-hours`).textContent = hours;
+          document.getElementById(`${prefix}-minutes`).textContent = minutes;
+          document.getElementById(`${prefix}-seconds`).textContent = seconds;
+          document.getElementById(`${prefix}-time`).style.display = 'flex';
+          document.getElementById(`${prefix}-ended`).style.display = 'none';
+        } else {
+          document.getElementById(`${prefix}-time`).style.display = 'none';
+          document.getElementById(`${prefix}-ended`).style.display = 'block';
+        }
       }
 
-      const globalDiffTime = globalLaunchDate - today;
-      if (globalDiffTime >= 0) {
-        const days = Math.floor(globalDiffTime / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((globalDiffTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((globalDiffTime % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((globalDiffTime % (1000 * 60)) / 1000);
-        document.getElementById('global-days').textContent = days;
-        document.getElementById('global-hours').textContent = hours;
-        document.getElementById('global-minutes').textContent = minutes;
-        document.getElementById('global-seconds').textContent = seconds;
-        document.getElementById('global-launch-time').style.display = 'flex';
-        document.getElementById('global-launch-ended').style.display = 'none';
-      } else {
-        document.getElementById('global-launch-time').style.display = 'none';
-        document.getElementById('global-launch-ended').style.display = 'block';
-      }
+      setCountdownElements("early-access", earlyDiffTime);
+      setCountdownElements("global-launch", globalDiffTime);
     }
 
     updateCountdown();
